@@ -1,0 +1,16 @@
+;; Object ecb-2.32/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "ecb-2.32/"
+  :tables (list 
+   (semanticdb-table "ecb-layout-defs.el"
+    :major-mode 'emacs-lisp-mode
+    :tags '(("silentcomp" include nil nil [1678 1699]) ("ecb-util" include nil nil [1702 1721]) ("ecb-layout" include nil nil [1722 1743]) ("ecb-layout-define" code nil nil [1934 3692]) ("ecb-layout-define" code nil nil [3765 5375]) ("ecb-layout-define" code nil nil [5448 7107]) ("ecb-layout-define" code nil nil [7180 8839]) ("ecb-layout-define" code nil nil [8912 10571]) ("ecb-layout-define" code nil nil [10645 12372]) ("ecb-layout-define" code nil nil [12446 14120]) ("ecb-layout-define" code nil nil [14193 15615]) ("ecb-layout-define" code nil nil [15687 17344]) ("ecb-layout-define" code nil nil [17417 19163]) ("ecb-layout-define" code nil nil [19236 20946]) ("ecb-layout-define" code nil nil [21018 22573]) ("ecb-layout-define" code nil nil [22646 24203]) ("ecb-layout-define" code nil nil [24277 25698]) ("ecb-layout-define" code nil nil [25772 27144]) ("ecb-layout-define" code nil nil [27218 28776]) ("ecb-layout-define" code nil nil [28850 30499]) ("ecb-layout-define" code nil nil [30573 32036]) ("ecb-layout-define" code nil nil [32110 33808]) ("ecb-layout-define" code nil nil [33886 35791]) ("ecb-layout-define" code nil nil [35869 37796]) ("ecb-layout-define" code nil nil [37874 39690]) ("ecb-layout-define" code nil nil [39693 41408]) ("ecb-layout-define" code nil nil [41410 43126]) ("ecb-layout-define" code nil nil [43128 45118]) ("ecb-layout-define" code nil nil [45120 46840]) ("ecb-buildin-layouts" variable (:constant-flag t :default-value (ecb-copy-list ecb-available-layouts)) nil [46842 46945]) ("silentcomp-provide" code nil nil [46947 46984]))
+    :file "ecb-layout-defs.el"
+    :pointmax 47018
+    :unmatched-syntax '((thing 1699 . 1700) (thing 1658 . 1675) (thing 1657 . 1658))
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

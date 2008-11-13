@@ -1,4 +1,3 @@
-(add-to-list 'load-path (expand-file-name "~/elisp/"))
 
 (column-number-mode t)
 (global-font-lock-mode t)
@@ -16,38 +15,18 @@
 (setq inhibit-startup-message t)
 (auto-compression-mode)
 (setq w32-use-w32-font-dialog nil)
-;; (setq inhibit-eol-conversion t)
-(defalias 'qrr 'query-replace-regexp)
-(menu-bar-mode -1)
+;;(setq inhibit-eol-conversion t)
 
-;; (setq desktop-save 'if-exists)
-;; (desktop-save-mode 1)
-;; (setq desktop-globals-to-save
-;;      (append '((extended-command-history . 30)
-;;                (file-name-history        . 100)
-;;                (grep-history             . 30)
-;;                (compile-history          . 30)
-;;                (minibuffer-history       . 50)
-;;                (query-replace-history    . 60)
-;;                (read-expression-history  . 60)
-;;                (regexp-history           . 60)
-;;                (regexp-search-ring       . 20)
-;;                (search-ring              . 20)
-;;                (shell-command-history    . 50)
-;;                tags-file-name
-;;                register-alist)))
+(defalias 'qrr 'query-replace-regexp)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
 (when window-system
+  (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
  
-  (load "gnuserv")
-  (gnuserv-start)
-  (setq gnuserv-frame (car (frame-list)))
-  
   (defconst color-scheme 'dark)
   (defconst background-color "black")
   (defconst foreground-color "white")
@@ -66,10 +45,20 @@
   (when (eq system-type 'windows-nt)
     (defconst font "-*-Lucida Console-normal-r-*-*-12-112-96-96-c-*-iso8859-1")
     (set-default-font font)
-    (add-to-list 'default-frame-alist (cons 'font font)))
+    (add-to-list 'default-frame-alist (cons 'font font))
+    (add-to-list 'load-path (expand-file-name "~/elisp/"))
+    (add-to-list 'load-path (expand-file-name "~/elisp/bbdb"))
+    (add-to-list 'load-path (expand-file-name "~/elisp/jabber"))
+    (add-to-list 'load-path (expand-file-name "~/elisp/nxml"))
+    (add-to-list 'load-path (expand-file-name "~/elisp/w3m"))
 
-  (require 'maxframe)
-  (add-hook 'window-setup-hook 'maximize-frame t)
+    (require 'maxframe)
+    (add-hook 'window-setup-hook 'maximize-frame t)
+
+    (load "gnuserv")
+    (gnuserv-start)
+    (setq gnuserv-frame (car (frame-list))))
+
 )
 
 (defconst lconfig-font-lock-faces  
@@ -400,7 +389,6 @@
 
 (require 'psvn)
 
-(add-to-list 'load-path (expand-file-name "~/elisp/jabber"))
 (require 'jabber)
 (setq jabber-username "darren.shepard")
 (setq jabber-nickname "Darren")
@@ -456,7 +444,7 @@
 (setq gnus-fetch-old-headers t)
 (setq gnus-posting-styles
       '((".*" (name "Darren Shepard"))))
-(setq gnus-use-full-window t)
+;;(setq gnus-use-full-window t)
 
 ;; And finally, make sure all messags I've read (IMAP or NNTP) are
 ;; cached locally so I have them available when I'm offline:
@@ -492,7 +480,6 @@
 				       "/" "\\" 
                        (dired-get-filename))))))
 
-(add-to-list 'load-path (expand-file-name "~/elisp/nxml"))
 (load "rng-auto.el")
 (add-to-list 'auto-mode-alist
              (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg") t) "\\'")
@@ -504,19 +491,19 @@
 (fset 'xml-mode 'nxml-mode)
 (fset 'html-mode 'nxml-mode)
 
-(add-to-list 'load-path (expand-file-name "~/elisp/w3m"))
 (require 'w3m-load)
 (setq mm-text-html-renderer 'w3m)
 (setq w3m-use-tab t)
 
-(add-to-list 'load-path (expand-file-name "~/elisp/bbdb"))
 (require 'bbdb)
-(bbdb-initialize 'gnus 'message 'sc)
+(bbdb-initialize 'gnus 'message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-(bbdb-insinuate-sc)
 (add-hook 'mail-setup-hook 'bbdb-insinuate-sendmail)
+(setq bbdb-north-american-phone-numbers-p nil)
 (setq bbdb-always-add-addresses t)
+(setq bbdb/mail-auto-create-p t)
 (setq bbdb-use-pop-up nil)
+(setq bbdb-offer-save nil)
 
 ;;(require 'iswitchb)
 ;;(iswitchb-mode t)
@@ -610,9 +597,6 @@
          (paren-face-add-support arc-font-lock-keywords-2))
 (add-hook 'arc-interaction-mode-hook
          (paren-face-add-support arc-font-lock-keywords-2))
-
-(require 'cygwin-mount)
-(cygwin-mount-activate)
 
 (setq erc-fill-column 66)
 

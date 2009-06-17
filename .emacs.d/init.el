@@ -15,6 +15,8 @@
 (setq inhibit-startup-message t)
 (auto-compression-mode)
 (setq w32-use-w32-font-dialog nil)
+(fset 'yes-or-no-p 'y-or-n-p)
+(show-paren-mode t)
 ;;(setq inhibit-eol-conversion t)
 
 (defalias 'qrr 'query-replace-regexp)
@@ -26,7 +28,7 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
- 
+
   (defconst color-scheme 'dark)
   (defconst background-color "black")
   (defconst foreground-color "white")
@@ -61,42 +63,42 @@
 
 )
 
-(defconst lconfig-font-lock-faces  
-  (list '(font-lock-builtin-face 
-          ((((class color) (background dark)) (:foreground "cyan" :bold t)) 
-           (((class color)) (:foreground "DarkBlue" :bold t)))) 
-        '(font-lock-comment-face 
-          ((((class color) (background dark)) (:foreground "LightPink")) 
-           (((class color)) (:foreground "FireBrick")))) 
+(defconst lconfig-font-lock-faces
+  (list '(font-lock-builtin-face
+          ((((class color) (background dark)) (:foreground "cyan" :bold t))
+           (((class color)) (:foreground "DarkBlue" :bold t))))
+        '(font-lock-comment-face
+          ((((class color) (background dark)) (:foreground "LightPink"))
+           (((class color)) (:foreground "FireBrick"))))
         '(font-lock-constant-face
-          ((((class color) (background dark)) (:foreground "SpringGreen")) 
-           (((class color)) (:foreground "ForestGreen")))) 
+          ((((class color) (background dark)) (:foreground "SpringGreen"))
+           (((class color)) (:foreground "ForestGreen"))))
         '(font-lock-doc-string-face
-          ((((class color) (background dark)) (:foreground "SpringGreen")) 
-           (((class color)) (:foreground "ForestGreen")))) 
+          ((((class color) (background dark)) (:foreground "SpringGreen"))
+           (((class color)) (:foreground "ForestGreen"))))
         '(font-lock-function-name-face
-          ((((class color) (background dark)) (:foreground "wheat3")) 
-           (((class color)) (:foreground "DarkBlue")))) 
+          ((((class color) (background dark)) (:foreground "wheat3"))
+           (((class color)) (:foreground "DarkBlue"))))
         '(font-lock-keyword-face
           ((((class color) (background dark)) (:foreground "SkyBlue" :bold t))
-           (((class color)) (:foreground "DarkBlue" :bold t)))) 
+           (((class color)) (:foreground "DarkBlue" :bold t))))
         '(font-lock-preprocessor-face
-          ((((class color) (background dark)) (:foreground "SkyBlue")) 
-           (((class color)) (:foreground "gray40")))) 
+          ((((class color) (background dark)) (:foreground "SkyBlue"))
+           (((class color)) (:foreground "gray40"))))
         '(font-lock-reference-face
-          ((((class color) (background dark)) (:foreground "yellow")) 
-           (((class color)) (:foreground "maroon4")))) 
+          ((((class color) (background dark)) (:foreground "yellow"))
+           (((class color)) (:foreground "maroon4"))))
         '(font-lock-string-face
-          ((((class color) (background dark)) (:foreground "SpringGreen")) 
-           (((class color)) (:foreground "ForestGreen")))) 
+          ((((class color) (background dark)) (:foreground "SpringGreen"))
+           (((class color)) (:foreground "ForestGreen"))))
         '(font-lock-type-face
-          ((((class color) (background dark)) (:foreground "orange1")) 
-           (((class color)) (:foreground "maroon4")))) 
+          ((((class color) (background dark)) (:foreground "orange1"))
+           (((class color)) (:foreground "maroon4"))))
         '(font-lock-variable-name-face
-          ((((class color) (background dark)) (:foreground "yellow")) 
-           (((class color)) (:foreground "SaddleBrown")))) 
+          ((((class color) (background dark)) (:foreground "yellow"))
+           (((class color)) (:foreground "SaddleBrown"))))
         '(font-lock-warning-name-face
-          ((((class color) (background dark)) (:foreground "DarkOrange")) 
+          ((((class color) (background dark)) (:foreground "DarkOrange"))
            (((class color)) (:foreground "DarkOrange"))))))
 
 (autoload 'custom-set-faces "font-lock" "Set the color scheme" t)
@@ -119,6 +121,7 @@
 
 (defun indent-untabify-region ()
   (interactive)
+  (delete-trailing-whitespace)
   (indent-region (region-beginning) (region-end))
   (untabify (region-beginning) (region-end)))
 
@@ -129,8 +132,8 @@
 (global-set-key "\C-c\C-k" 'kill-ring-save)
 (global-set-key "\M-C"     'calc)
 (global-set-key "\M-M"     'gnus)
-(global-set-key "\C-cg"    'rgrep)
-(global-set-key "\C-xg"    'rgrep)
+(global-set-key "\C-cg"    'ack)
+(global-set-key "\C-xg"    'ack)
 (global-set-key "\M-F"     'indent-untabify-region)
 (global-set-key "\M-K"     'comment-region)
 (global-set-key "\M-U"     'uncomment-region)
@@ -228,20 +231,20 @@
 ;; ruby-mode-map.
 (setq ruby-mode-hook nil)
 (add-to-hook 'ruby-mode-hook
-             (define-key ruby-mode-map [(control ?c) (control ?l)] 
+             (define-key ruby-mode-map [(control ?c) (control ?l)]
 'g0-ruby-load-buffer))
 (add-to-hook 'ruby-mode-hook
              (define-key ruby-mode-map [(meta return)] 'g0-ruby-end-block))
 (add-to-hook 'ruby-mode-hook
-             (define-key ruby-mode-map [(control ?c) (control ?p)] 
+             (define-key ruby-mode-map [(control ?c) (control ?p)]
 'g0-ruby-toggle-irb-program))
 (add-to-hook 'inferior-ruby-mode-hook
-             (define-key ruby-mode-map [(control ?c) (control ?l)] 
+             (define-key ruby-mode-map [(control ?c) (control ?l)]
 'g0-ruby-load-buffer))
 (add-to-hook 'inferior-ruby-mode-hook
              (define-key ruby-mode-map [(meta return)] 'g0-ruby-end-block))
 (add-to-hook 'inferior-ruby-mode-hook
-             (define-key ruby-mode-map [(control ?c) (control ?p)] 
+             (define-key ruby-mode-map [(control ?c) (control ?p)]
 'g0-ruby-toggle-kirb-program))
 
 (setq blt-c-style
@@ -288,7 +291,7 @@
 (autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
 
 ;; Fix foolish calendar-mode scrolling.
-(add-hook 'calendar-load-hook 
+(add-hook 'calendar-load-hook
           '(lambda ()
              (setq mark-holidays-in-calendar t)
              (define-key calendar-mode-map ">" 'scroll-calendar-left)
@@ -315,11 +318,11 @@
     (message "You need exactly 2 windows to do this."))
    (t
     (let* ((w1 (first (window-list)))
-	   (w2 (second (window-list)))
-	   (b1 (window-buffer w1))
-	   (b2 (window-buffer w2))
-	   (s1 (window-start w1))
-	   (s2 (window-start w2)))
+       (w2 (second (window-list)))
+       (b1 (window-buffer w1))
+       (b2 (window-buffer w2))
+       (s1 (window-start w1))
+       (s2 (window-start w2)))
       (set-window-buffer w1 b2)
       (set-window-buffer w2 b1)
       (set-window-start w1 s2)
@@ -329,39 +332,39 @@
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
-	(filename (buffer-file-name)))
+    (filename (buffer-file-name)))
     (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
+    (message "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
-	  (message "A buffer named '%s' already exists!" new-name)
-	(progn
-	  (rename-file name new-name 1)
-	  (rename-buffer new-name)
-	  (set-visited-file-name new-name)
-	  (set-buffer-modified-p nil))))))
+      (message "A buffer named '%s' already exists!" new-name)
+    (progn
+      (rename-file name new-name 1)
+      (rename-buffer new-name)
+      (set-visited-file-name new-name)
+      (set-buffer-modified-p nil))))))
 
 (defun move-buffer-file (dir)
   "Moves both current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
   (let* ((name (buffer-name))
-	 (filename (buffer-file-name))
-	 (dir
-	  (if (string-match dir "\\(?:/\\|\\\\)$")
-	      (substring dir 0 -1) dir))
-	 (newname (concat dir "/" name)))
+     (filename (buffer-file-name))
+     (dir
+      (if (string-match dir "\\(?:/\\|\\\\)$")
+          (substring dir 0 -1) dir))
+     (newname (concat dir "/" name)))
 
     (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
+    (message "Buffer '%s' is not visiting a file!" name)
       (progn
-	(copy-file filename newname 1)
-	(delete-file filename)
-	(set-visited-file-name newname)
-	(set-buffer-modified-p nil)
-	t))))
+    (copy-file filename newname 1)
+    (delete-file filename)
+    (set-visited-file-name newname)
+    (set-buffer-modified-p nil)
+    t))))
 
 (setq shell-file-name "bash")
-(setenv "SHELL" shell-file-name) 
-(setq explicit-shell-file-name shell-file-name) 
+(setenv "SHELL" shell-file-name)
+(setq explicit-shell-file-name shell-file-name)
 
 ;; This removes unsightly ^M characters that would otherwise
 ;; appear in the output of java applications.
@@ -388,6 +391,8 @@
 (setq sourcepair-recurse-ignore '( "CVS" "Obj" "Debug" "Release" ))
 
 (require 'psvn)
+(setq svn-status-hide-unknown t)
+(setq svn-status-hide-unmodified t)
 
 (require 'jabber)
 (setq jabber-username "darren.shepard")
@@ -409,7 +414,7 @@
   (split-window-vertically -15))
 
 ;; Nokia mail setup
-(setq 
+(setq
  user-full-name "Shepard Darren (Nokia-M/SanFrancisco)"
  user-mail-address "darren.shepard@nokia.com"
  smtpmail-smtp-server "dae102.yav4.com"
@@ -420,10 +425,10 @@
  smtpmail-auth-credentials '(("dae102.yav4.com" 25 "NOE/dashepar" nil))
  )
 
-(setq gnus-select-method 
+(setq gnus-select-method
       '(nnimap "nokia" (nnimap-address "dae102.yav4.com")))
 
-(setq gnus-message-archive-group 
+(setq gnus-message-archive-group
       '("nnimap+nokia:Sent Items"))
 
 ;; Tree view for groups.
@@ -431,7 +436,7 @@
 
 ;; Threads!  I hate reading un-threaded email -- especially mailing
 ;; lists.  This helps a ton!
-(setq gnus-summary-thread-gathering-function 
+(setq gnus-summary-thread-gathering-function
       'gnus-gather-threads-by-subject)
 
 ;; Also, I prefer to see only the top level message.  If a message has
@@ -473,11 +478,11 @@
   (w32-shell-execute 1 doc))
 
 (eval-after-load "dired"
-  '(define-key dired-mode-map [f3] (lambda () 
-				     (interactive)
-				     (w32-browser
-				      (dired-replace-in-string 
-				       "/" "\\" 
+  '(define-key dired-mode-map [f3] (lambda ()
+                     (interactive)
+                     (w32-browser
+                      (dired-replace-in-string
+                       "/" "\\"
                        (dired-get-filename))))))
 
 (load "rng-auto.el")
@@ -602,13 +607,69 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-; there is a tab here: ->	<-
+; there is a tab here: ->   <-
 (require 'show-wspace)
 (add-hook 'c-mode-common-hook 'show-ws-highlight-tabs)
+
+;; ack (grep replacement)
+(require 'ack)
 
 ; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link) [1]
 (define-key global-map "\C-ca" 'org-agenda) [1]
+
+; Tab Completion Everywhere
+; http://www.emacsblog.org/2007/03/12/tab-completion-everywhere/
+(defun indent-or-expand (arg)
+  "Either indent according to mode, or expand the word preceding point."
+  (interactive "*P")
+  (if (and
+       (or (bobp) (= ?w (char-syntax (char-before))))
+       (or (eobp) (not (= ?w (char-syntax (char-after))))))
+      (dabbrev-expand arg)
+    (indent-according-to-mode)))
+
+(defun my-tab-fix ()
+  (local-set-key [tab] 'indent-or-expand))
+
+(add-hook 'c++-mode-hook        'my-tab-fix)
+(add-hook 'c-mode-hook          'my-tab-fix)
+(add-hook 'sh-mode-hook         'my-tab-fix)
+(add-hook 'emacs-lisp-mode-hook 'my-tab-fix)
+
+(defun untabify-buffer ()
+  "Untabify current buffer"
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(defun progmodes-hooks ()
+  "Hooks for programming modes"
+  (yas/minor-mode-on)
+  (add-hook 'before-save-hook 'progmodes-write-hooks))
+
+(defun progmodes-write-hooks ()
+  "Hooks which run on file write for programming modes"
+  (prog1 nil
+    (set-buffer-file-coding-system 'utf-8-unix)
+    (untabify-buffer)
+    (delete-trailing-whitespace)))
+
+(defun delete-trailing-whitespacep ()
+  "Should we delete trailing whitespace when saving this file?"
+  (save-excursion
+    (goto-char (point-min))
+    (ignore-errors (next-line 25))
+    (let ((pos (point)))
+      (goto-char (point-min))
+      (and (re-search-forward (concat "@author +" user-full-name) pos t) t))))
+
+(defun maybe-delete-trailing-whitespace ()
+  "Delete trailing whitespace if I am the author of this file."
+  (interactive)
+  (and (delete-trailing-whitespacep) (delete-trailing-whitespace)))
+
+(add-hook 'c++-mode-hook 'progmodes-hooks)
+(add-hook 'c-mode-hook 'progmodes-hooks)
 
 (shell)
